@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+
+// Create context with no default value (the Provider will give this)
+export const Context = createContext();
+
+const AppWrapper = () => {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [user, setUser] = useState({});
+
+  return (
+    <Context.Provider
+      value={{
+        isAuthorized,
+        setIsAuthorized,
+        user,
+        setUser,
+      }}
+    >
+      {/* <BrowserRouter> */}
+        <App />
+      {/* </BrowserRouter> */}
+    </Context.Provider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppWrapper />
   </React.StrictMode>
 );
 
